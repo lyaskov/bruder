@@ -5,7 +5,7 @@
 dht DHT1;
 dht DHT2;
 
-#define DHT11_PIN1  7
+#define DHT11_PIN1  2
 #define DHT11_PIN2  8
 
 #define RELAY1 3
@@ -38,8 +38,8 @@ void loop() {
   int temperatureRelay = round(sensorValue * (20 / 1023.0) + 20);
   Serial.println(temperatureRelay);
 
-  lcd.setCursor(0, 1);
-  lcd.print("Tmax="); lcd.print(temperatureRelay);
+  lcd.setCursor(11, 0);
+  lcd.print(" T="); lcd.print(temperatureRelay);
 
   unsigned long currentMillis = millis();
 
@@ -76,16 +76,16 @@ void loop() {
     } else {
       digitalWrite(RELAY2, LOW);           // Turns OFF Relays 1
     }
-
+    
+    //вывод температуры
     lcd.home();
     lcd.print("T1="); lcd.print(round(DHT1.temperature));
-    //    lcd.setCursor(0, 1);
     lcd.print(" T2="); lcd.print(round(DHT2.temperature));
-    //    lcd.print("hum = ");
-    //    lcd.print(DHT.humidity); lcd.setCursor(11, 1);
-
-    //  Serial.print(DHT.humidity, 1);
-    //  Serial.print(",\t");
-    //  Serial.println(DHT.temperature, 1);
+    
+    //вывод влажности
+    lcd.setCursor(0, 1);
+    lcd.print("H1="); lcd.print(round(DHT1.humidity));
+    lcd.print(" H2="); lcd.print(round(DHT2.humidity));
+    lcd.print("      ");
   }
 }
